@@ -1,4 +1,3 @@
-
 #------------<END GOALS>------------#
 
 #-----<make json structure>------#  GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! GOOD! 
@@ -44,6 +43,7 @@ wind_width = 0
 wind_name = "made with tk compile"
 
 wind_content = {}
+wind_start = []
 
 for key, val in dict(data).items():
 
@@ -62,6 +62,11 @@ for key, val in dict(data).items():
         if val_key == "content":
             for vval_key, vval_val in  dict(val_val).items():
                 wind_content[vval_key] = vval_val
+            #end
+        #end
+        if val_key == "create":
+            for vval_key in list(val_val):
+                wind_start.append(vval_key)
             #end
         #end
     #end
@@ -107,6 +112,8 @@ f_cent = (wind_width / 2, wind_hight / 2)
 
 def shape_v4(creation,shape):
     if shape in  key: #---<rect gen>---#
+
+        print("adding new " + shape)
 
         f.write(key + " " + "= " + creation + "(")
 
@@ -157,13 +164,71 @@ def shape_v4(creation,shape):
     #end
 #end
 
+def btn():
+    if "btn" in key:
+        print("adding new button")
+
+        #--------<create vars>---------#
+
+        xx = 0
+        y = 0
+        func = ""
+        func_code = []
+
+        for ex in list(val):
+
+            if "x_" in ex:
+                xx = ex[2:len(ex)]
+            #end
+            if "y_" in ex:
+                y = ex[2:len(ex)]
+            #end
+            if "f_" in ex:
+                func = ex[2:len(ex)]
+            #end
+
+            for x in list(ex):
+                #print(ex,"|",x)
+                pass
+            #end
+
+            if "[" in str(ex):
+                for line in list(ex):
+                   func_code.append(line)
+                #end
+            #end
+        #end
+
+        #print(xx,"|",y,"|",func)
+
+        #--------<write to file>---------#
+
+        f.write("\ndef " + func + "():")
+
+        for iteam in func_code:
+            f.write("\n    " + iteam)
+        #end
+
+        f.write("\n#end\n\n")
+        f.write(func + " = Button(text ='" + func + "', command = " + func + ")\n")
+        f.write(func + ".place(x = " + xx + ", y = "+ y +")\n")
+    #end
+#end
+
 print("compileing tk code")
+
+for key in wind_start:
+    f.write(key + "\n")
+#end
+
+f.write("\n")
 
 for key,val in wind_content.items():
 
     shape_v4("canvas.create_line","line")
-
     shape_v4("canvas.create_rectangle","box")
+
+    btn()
 #end
 
 #-----<add end tk to python file>------#

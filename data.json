@@ -4,10 +4,19 @@
         "width": 700,
         "name": "deded",
 
+        "create": [
+            "x = 'egg boi'"
+        ],
+
         "content": {
             "line": [["f_bot_r",","],["f_top_l"]],
             "line2": [["f_bot_l",","],["f_top_r"],["f_c YELLOW"]],
-            "box": [["25","25,"],["130","60"],["f_c RED"],["f_o BLUE"],["f_w 10"]]
+            "box": [["25","25,"],["130","60"],["f_c RED"],["f_o BLUE"],["f_w 10"]],
+            "btn": ["x_75","y_75","f_whoop",[
+                "print('e')",
+                "print('buttttooonnn')",
+                "whoop.configure(text = x)"
+            ]]
         }
     }
 }
